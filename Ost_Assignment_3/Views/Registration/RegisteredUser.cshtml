@@ -1,0 +1,80 @@
+﻿@using Ost_Assignment_3.Models;
+
+
+@{
+    ViewBag.Title = "All User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>All Users</title>
+    <style>
+        #tblEquipment {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #tblEquipment td, #tblEquipment th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #tblEquipment tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #tblEquipment tr:hover {
+                background-color: #ddd;
+            }
+
+            #tblEquipment th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #04AA6D;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col col-12">
+            <div style="height: 50px; background: #04AA6D; width: 100%; text-align: left; padding: 10px; border-radius: 5px;">
+                <h3 style="color: white; padding-left: 10px">Registered Users</h3> 
+            </div>
+            <div style="max-height: 400px; width: 100%; overflow: auto; padding: 10px">
+                @{
+                    List<BaseMember> Userlist = ViewBag.UserList;
+                }
+                <table id="tblEquipment" style="width: 100%">
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                    </tr>
+                    @{
+                        foreach (BaseMember obj in Userlist)
+                        {
+                            <tr>
+                                <td>@obj.Id</td>
+                                <td>@obj.FirstName</td>
+                                <td>@obj.LastName</td>
+                                <td>@obj.Email</td>
+                                <td>@obj.Gender</td>
+                                <td>@obj.RoleName</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

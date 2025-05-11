@@ -1,0 +1,122 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script>
+        function ResetForm() {
+            document.querySelector('form').reset();
+            document.getElementById('NewPasswordStatus').style.display = "none";
+            document.getElementById('submitBtn').disabled = true;
+        }
+        function ValidatePassword() {
+            var password = document.getElementById("PasswordInput").value;
+            var rePassword = document.getElementById("ConfirmPasswordInput").value;
+            //var NewPasswordStatus = getElementById('NewPasswordStatus');
+            if (password === rePassword && password !== "" && rePassword !== "") {
+                document.getElementById('NewPasswordStatus').innerHTML = 'Passwords match';
+                document.getElementById('NewPasswordStatus').style.display = "block";
+                document.getElementById('NewPasswordStatus').style.color = "green";
+                document.getElementById('submitBtn').disabled = false;
+            } else if (rePassword !== null || password !== rePassword) {
+                document.getElementById("NewPasswordStatus").innerHTML = "Passwords do not match or empty";
+                document.getElementById('NewPasswordStatus').style.display = "block";
+                document.getElementById('NewPasswordStatus').style.color = "red";
+                document.getElementById('submitBtn').disabled = true;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style="height: 600px; width: 900px; position: fixed; top:0px; bottom: 0px; left:0px; right: 0px; margin: auto;">
+        <div style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; margin: auto; height: 550px; width: 90%;">
+            <form method="post" action="@Url.Action("Registration", "Registration")">
+                <div class="card">
+                    <h5 class="card-header" style="background-color: #0d6efd; color: white; text-align: center">User Registration Form</h5>
+                    <div class="card-body">
+                        <div class="mb-3" style="display: flex; gap: 1rem">
+                            <div style="display: inline-block; width: 50%">
+                                <label for="firstNameInput" class="form-label">First Name</label>
+                                <input type="text" name="txtFirstName" class="form-control" id="firstNameInput" required />
+                            </div>
+                            <div style="display: inline-block; width: 50%">
+                                <label for="LastNameInput" class="form-label">Last Name</label>
+                                <input type="text" name="txtLastName" class="form-control" id="LastNameInput" required />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="UserNameInput" class="form-label">Username or Email</label>
+                            <input type="text" name="txtUserName" class="form-control" id="UserNameInput" required>
+                        </div>
+                        <div class="mb-3" style="display: flex; gap: 1rem">
+                            <div style="display: inline-block; width: 50%">
+                                <label for="PasswordInput" class="form-label">Password</label>
+                                <input type="password" name="txtPassword" class="form-control" id="PasswordInput" required onkeyup="ValidatePassword()">
+                            </div>
+                            <div style="display: inline-block; width: 50%">
+                                <label for="ConfirmPasswordInput" class="form-label">Confirm Password</label>
+                                <input type="password" name="txtConfirmPassword" class="form-control" id="ConfirmPasswordInput" required onkeyup="ValidatePassword()">
+                                <span id="NewPasswordStatus" style="display: none; padding-top:2px; text-align:center; color:red"></span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Gender</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="txtGender" id="genderMale" value="male" required>
+                                    <label class="form-check-label" for="genderMale">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="txtGender" id="genderFemale" value="female">
+                                    <label class="form-check-label" for="genderFemale">Female</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="roleSelect">Role</label>
+                            <select name="txtRole" class="form-select" id="roleSelect" required>
+                                <option value="" selected disabled>Choose a role</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Manager</option>
+                                <option value="3">Employee</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <input style="width: 125px" value="Submit" class="btn btn-success" disabled type="submit" id="submitBtn" />
+                            <input style="width: 125px;" value="Cancel" class="btn btn-secondary ms-3" type="button" onclick="ResetForm()" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    @if (Session["Message"] != null)
+    {
+        if ((bool)Session["IsSuccess"])
+        {
+            <div class="alert alert-success text-center" id="resultMessage">@Session["Message"]</div>
+            <script>
+            setTimeout(function () {
+                window.location.href = '@Url.Action("RegisteredUser", "Registration")';
+            }, 2000);
+            </script>
+        }
+        else
+        {
+            <div class="alert alert-danger text-center" id="resultMessage">@Session["Message"]</div>
+        }
+        Session.Remove("Message");
+        Session.Remove("IsSuccess");
+
+    }
+</body>
+</html>
+
