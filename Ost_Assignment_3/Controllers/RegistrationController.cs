@@ -27,7 +27,7 @@ namespace Ost_Assignment_3.Controllers
             {
                 member.UserRegistraion(txtFirstName, txtLastName, txtUserName, txtPassword, txtGender, roleId);
 
-                Session["Message"] = "Registration Compeleted successfully.";
+                Session["Message"] = "Registration Compeleted successfully. Redirecting to User List Page.";
                 Session["IsSuccess"] = true;
                 return View();
             }

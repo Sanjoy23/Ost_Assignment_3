@@ -60,16 +60,18 @@
                         <th>Role</th>
                     </tr>
                     @{
+                        int serial = 1;
                         foreach (BaseMember obj in Userlist)
                         {
                             <tr>
-                                <td>@obj.Id</td>
+                                <td>@serial</td>
                                 <td>@obj.FirstName</td>
                                 <td>@obj.LastName</td>
                                 <td>@obj.Email</td>
                                 <td>@obj.Gender</td>
                                 <td>@obj.RoleName</td>
                             </tr>
+                            serial++;
                         }
                     }
                 </table>
