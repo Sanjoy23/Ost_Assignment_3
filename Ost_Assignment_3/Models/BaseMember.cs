@@ -61,7 +61,7 @@ namespace Ost_Assignment_3.Models
             {
                 while (reader.Read())
                 {
-                    member = reader["UserName"].ToString();
+                    member = reader["Email"].ToString();
                 }
             }
             cmd.Dispose();
